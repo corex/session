@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\CoRex\Session;
 
 use CoRex\Session\Session;
@@ -8,17 +10,28 @@ use stdClass;
 
 class SessionTest extends TestCase
 {
+    /** @var string */
     private $namespace1 = 'Namespace 1';
+
+    /** @var string */
     private $namespace2 = 'Namespace 2';
+
+    /** @var string */
     private $testName1 = 'test name 1';
+
+    /** @var string */
     private $testName2 = 'test name 2';
+
+    /** @var string */
     private $testValue1 = 'test value 1';
+
+    /** @var string */
     private $testValue2 = 'test value 2';
 
     /**
      * Test Clear.
      */
-    public function testClear()
+    public function testClear(): void
     {
         // Set test data for non namespace and for namespace.
         Session::set($this->testName1, $this->testValue1);
@@ -42,7 +55,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get integer.
      */
-    public function testSetGetInteger()
+    public function testSetGetInteger(): void
     {
         Session::set('test', 4);
         $this->assertTrue(is_int(Session::get('test')));
@@ -51,7 +64,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get string.
      */
-    public function testSetGetString()
+    public function testSetGetString(): void
     {
         Session::set('test', 'test');
         $this->assertTrue(is_string(Session::get('test')));
@@ -60,7 +73,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get array.
      */
-    public function testSetGetArray()
+    public function testSetGetArray(): void
     {
         Session::set('test', ['test']);
         $this->assertTrue(is_array(Session::get('test')));
@@ -70,7 +83,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get boolean.
      */
-    public function testSetGetBoolean()
+    public function testSetGetBoolean(): void
     {
         Session::set('test', false);
         $this->assertTrue(is_bool(Session::get('test')));
@@ -79,7 +92,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get float.
      */
-    public function testSetGetFloat()
+    public function testSetGetFloat(): void
     {
         Session::set('test', 10.4);
         $this->assertTrue(is_float(Session::get('test')));
@@ -88,7 +101,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get object.
      */
-    public function testSetGetObject()
+    public function testSetGetObject(): void
     {
         Session::set('test', new stdClass());
         $this->assertTrue(is_object(Session::get('test')));
@@ -97,7 +110,7 @@ class SessionTest extends TestCase
     /**
      * Test set/get null.
      */
-    public function testSetGetNull()
+    public function testSetGetNull(): void
     {
         Session::set('test', null);
         $this->assertNull(Session::get('test', 'test'));
@@ -106,7 +119,7 @@ class SessionTest extends TestCase
     /**
      * Test get array.
      */
-    public function testGetArray()
+    public function testGetArray(): void
     {
         Session::clear();
         Session::set($this->testName1, $this->testValue1);
@@ -121,7 +134,7 @@ class SessionTest extends TestCase
     /**
      * Test has.
      */
-    public function testHas()
+    public function testHas(): void
     {
         Session::clear();
         $this->assertFalse(Session::has('test'));
@@ -132,7 +145,7 @@ class SessionTest extends TestCase
     /**
      * Test delete.
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         Session::clear();
         Session::set('test', 'test');
@@ -144,7 +157,7 @@ class SessionTest extends TestCase
     /**
      * Test page clear.
      */
-    public function testPageClear()
+    public function testPageClear(): void
     {
         // Set test data for non namespace and for namespace.
         Session::pageSet($this->testName1, $this->testValue1, $this->namespace1);
@@ -170,7 +183,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get integer.
      */
-    public function testPageSetGetInteger()
+    public function testPageSetGetInteger(): void
     {
         Session::pageSet('test', 4, $this->namespace1);
         $this->assertTrue(is_int(Session::pageGet('test', null, $this->namespace1)));
@@ -179,7 +192,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get string.
      */
-    public function testPageSetGetString()
+    public function testPageSetGetString(): void
     {
         Session::pageSet('test', 'test', $this->namespace1);
         $this->assertTrue(is_string(Session::pageGet('test', null, $this->namespace1)));
@@ -188,7 +201,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get array.
      */
-    public function testPageSetGetArray()
+    public function testPageSetGetArray(): void
     {
         Session::pageSet('test', ['test'], $this->namespace1);
         $this->assertTrue(is_array(Session::pageGet('test', null, $this->namespace1)));
@@ -197,7 +210,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get boolean.
      */
-    public function testPageSetGetBoolean()
+    public function testPageSetGetBoolean(): void
     {
         Session::pageSet('test', false, $this->namespace1);
         $this->assertTrue(is_bool(Session::pageGet('test', null, $this->namespace1)));
@@ -206,7 +219,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get float.
      */
-    public function testPageSetGetFloat()
+    public function testPageSetGetFloat(): void
     {
         Session::pageSet('test', 10.4, $this->namespace1);
         $this->assertTrue(is_float(Session::pageGet('test', null, $this->namespace1)));
@@ -215,7 +228,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get object.
      */
-    public function testPageSetGetObject()
+    public function testPageSetGetObject(): void
     {
         Session::pageSet('test', new stdClass(), $this->namespace1);
         $this->assertTrue(is_object(Session::pageGet('test', null, $this->namespace1)));
@@ -224,7 +237,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get null.
      */
-    public function testPageSetGetNull()
+    public function testPageSetGetNull(): void
     {
         Session::pageSet('test', null, $this->namespace1);
         $this->assertNull(Session::pageGet('test', 'test', $this->namespace1));
@@ -233,7 +246,7 @@ class SessionTest extends TestCase
     /**
      * Test page set/get namespace.
      */
-    public function testPageSetNamespace()
+    public function testPageSetNamespace(): void
     {
         Session::pageSet('test', 'test');
         $this->assertTrue(is_string(Session::pageGet('test')));
@@ -242,7 +255,7 @@ class SessionTest extends TestCase
     /**
      * Test page get array.
      */
-    public function testPageGetArray()
+    public function testPageGetArray(): void
     {
         Session::pageClear($this->namespace1);
         Session::pageSet($this->testName1, $this->testValue1, $this->namespace1);
@@ -259,7 +272,7 @@ class SessionTest extends TestCase
     /**
      * Test page has.
      */
-    public function testPageHas()
+    public function testPageHas(): void
     {
         Session::pageClear($this->namespace1);
         $this->assertFalse(Session::pageHas('test', $this->namespace1));
@@ -271,7 +284,7 @@ class SessionTest extends TestCase
     /**
      * Test page delete.
      */
-    public function testPageDelete()
+    public function testPageDelete(): void
     {
         Session::pageClear($this->namespace1);
 

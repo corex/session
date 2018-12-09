@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CoRex\Session;
 
 class Token
 {
+    /** @var string */
     public static $namespace = '-token-';
 
     /**
      * Clear all tokens.
      */
-    public static function clear()
+    public static function clear(): void
     {
         Session::clear(self::$namespace);
     }
@@ -18,10 +21,10 @@ class Token
      * Create token.
      *
      * @param string $name
-     * @param integer $lifetime Default 300 seconds.
+     * @param int $lifetime Default 300 seconds.
      * @return string
      */
-    public static function create($name, $lifetime = 300)
+    public static function create(string $name, int $lifetime = 300): string
     {
         $token = sha1(microtime());
         $tokenData = [
@@ -39,7 +42,7 @@ class Token
      * @param string $name
      * @return string|null
      */
-    public static function get($name)
+    public static function get(string $name): ?string
     {
         $data = Session::get($name, null, self::$namespace);
         if (is_array($data) && array_key_exists('token', $data)) {
@@ -52,9 +55,9 @@ class Token
      * Has.
      *
      * @param string $name
-     * @return boolean
+     * @return bool
      */
-    public static function has($name)
+    public static function has(string $name): bool
     {
         return Session::has($name, self::$namespace);
     }
@@ -64,16 +67,16 @@ class Token
      *
      * @param string $name
      * @param string $token
-     * @return boolean
+     * @return bool
      */
-    public static function isValid($name, $token)
+    public static function isValid(string $name, string $token): bool
     {
         $savedToken = Session::get($name, null, self::$namespace);
         if (isset($savedToken['token'])) {
             if (time() >= $savedToken['time'] + $savedToken['lifetime']) {
                 $savedToken['token'] = '';
             }
-            return $token == $savedToken['token'];
+            return $token === $savedToken['token'];
         }
         return false;
     }
@@ -83,7 +86,7 @@ class Token
      *
      * @param string $name
      */
-    public static function delete($name)
+    public static function delete(string $name): void
     {
         Session::delete($name, self::$namespace);
     }

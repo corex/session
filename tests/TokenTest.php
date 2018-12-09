@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\CoRex\Session;
 
 use CoRex\Session\Session;
@@ -8,13 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 class TokenTest extends TestCase
 {
+    /** @var string */
     private $test1 = 'test 1';
+
+    /** @var string */
     private $test2 = 'test 2';
 
     /**
      * Setup.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Token::clear();
@@ -23,7 +28,7 @@ class TokenTest extends TestCase
     /**
      * Test create.
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $token1 = Token::create($this->test1);
         $token2 = Token::create($this->test2);
@@ -35,7 +40,7 @@ class TokenTest extends TestCase
     /**
      * Test get.
      */
-    public function testGet()
+    public function testGet(): void
     {
         // Test if tokens exists.
         $this->assertFalse(Token::has($this->test1));
@@ -55,7 +60,7 @@ class TokenTest extends TestCase
     /**
      * Test has.
      */
-    public function testHas()
+    public function testHas(): void
     {
         // Check if tokens exists.
         $this->assertFalse(Token::has($this->test1));
@@ -73,7 +78,7 @@ class TokenTest extends TestCase
     /**
      * Test is valid.
      */
-    public function testIsValid()
+    public function testIsValid(): void
     {
         // Get and test standard token.
         $token1 = Token::create($this->test1);
@@ -95,7 +100,7 @@ class TokenTest extends TestCase
     /**
      * Test delete.
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         // Test if tokens exists.
         $this->assertFalse(Token::has($this->test1));
